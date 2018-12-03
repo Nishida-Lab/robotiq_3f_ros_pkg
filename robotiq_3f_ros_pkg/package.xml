@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package>
+  <name>robotiq_3f_ros_pkg</name>
+  <version>1.0.0</version>
+  <description>The robotiq 3f gripper wrapper package</description>
+
+  <maintainer email="atsuki.yokota@gmail.com">Atsuki Yokota</maintainer>
+  <license>BSD</license>
+  <url type="repository">http://github.com/Nishida-Lab/robotiq_3f_ros_pkg</url>
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+  <metapackage />
+  </export>
+</package>
