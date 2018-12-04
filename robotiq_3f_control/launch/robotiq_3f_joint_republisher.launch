@@ -1,0 +1,7 @@
+<launch>
+  <node pkg="robotiq_3f_control"  type="robotiq_3f_joint_state_republisher"  name="robotiq_3f_joint_state_republisher" output="screen">
+    <param name="joint_state_republish_topic_name" value="/joint_states" />
+    <param name="joint_state_subscribe_topic_name" value="/vs087/joint_states" />
+  </node>
+
+</launch>
