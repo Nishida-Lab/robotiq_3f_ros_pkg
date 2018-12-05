@@ -16,6 +16,10 @@ add_service_files(
   SetPosition.srv
   SetSpeed.srv
   SetTorque.srv
+  GetMode.srv
+  GetPosition.srv
+  GetSpeed.srv
+  GetTorque.srv
 )
 
 generate_messages(
