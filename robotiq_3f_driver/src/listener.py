@@ -21,10 +21,10 @@ from time import sleep
 class Robotic3fGripperListener(object):
     def __init__(self):
         self.gripper = Robotic3fGripperDriver()
-        self.gripper.activate()
-        sleep(0.01)
-        while self.gripper._gripper_status.gIMC != 3:
-            pass
+        # self.gripper.activate()
+        # sleep(1)
+        # while self.gripper._gripper_status.gIMC != 3:
+        #     pass
         self._activate_service = rospy.Service('/robotiq_3f_gripper/activate', Activate, self.activate)
         self._open_hand_service = rospy.Service('/robotiq_3f_gripper/open_hand', Move, self.open_hand)
         self._close_hand_service = rospy.Service('/robotiq_3f_gripper/close_hand', Move, self.close_hand)
@@ -41,7 +41,7 @@ class Robotic3fGripperListener(object):
     def activate(self, req):
         ret = ActivateResponse()
         self.gripper.activate()
-        sleep(0.01)
+        sleep(1)
         while self.gripper._gripper_status.gIMC != 3:
             pass
         ret.success = True
@@ -53,7 +53,7 @@ class Robotic3fGripperListener(object):
             ret.success = False
             return ret
         self.gripper.open_hand()
-        sleep(0.01)
+        sleep(1)
         while True:
             if self.gripper._gripper_status.gGTO == 1 and \
                self.gripper._gripper_status.gSTA != 0:
@@ -67,7 +67,7 @@ class Robotic3fGripperListener(object):
             ret.success = False
             return ret
         self.gripper.close_hand()
-        sleep(0.01)
+        sleep(1)
         while True:
             if self.gripper._gripper_status.gGTO == 1 and \
                self.gripper._gripper_status.gSTA != 0:
@@ -81,7 +81,7 @@ class Robotic3fGripperListener(object):
             ret.success = False
             return ret
         self.gripper.set_mode(req.mode)
-        sleep(0.01)
+        sleep(1)
         while self.gripper._gripper_status.gIMC != 3:
             pass
         ret.success = True
@@ -93,7 +93,7 @@ class Robotic3fGripperListener(object):
             ret.success = False
             return ret
         self.gripper.set_position(req.position)
-        sleep(0.01)
+        sleep(1)
         while True:
             if self.gripper._gripper_status.gGTO == 1 and \
                self.gripper._gripper_status.gSTA != 0:
@@ -140,8 +140,8 @@ class Robotic3fGripperListener(object):
         ret.finger_a_position = self.gripper.get_position_a()
         ret.finger_b_position = self.gripper.get_position_b()
         ret.finger_c_position = self.gripper.get_position_c()
-        if ret.target_position and ret.finger_a_position and \
-           ret.finger_b_position and ret.finger_c_position:
+        if (ret.target_position is not None) and (ret.finger_a_position is not None) and \
+           (ret.finger_b_position is not None) and (ret.finger_c_position is not None):
             ret.success = True
         else:
             ret.success = False
@@ -168,7 +168,4 @@ class Robotic3fGripperListener(object):
 if __name__ == '__main__':
     rospy.init_node('robotiq_3f_gripper_listener')
     robotiq_3f_gripper_listener = Robotic3fGripperListener()
-    try:
-        rospy.spin()
-    except KeyboardInterrupt:
-        rospy.loginfo("Shutting Down.")
+    rospy.spin()
