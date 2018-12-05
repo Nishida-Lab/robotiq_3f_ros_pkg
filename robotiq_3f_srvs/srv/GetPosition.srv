@@ -1,0 +1,6 @@
+---
+uint8 target_position
+uint8 finger_a_position
+uint8 finger_b_position
+uint8 finger_c_position
+bool success
