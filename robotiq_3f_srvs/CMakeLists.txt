@@ -7,15 +7,21 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
 )
 
-# add_service_files(
-#   FILES
-#   Move.srv
-# )
+add_service_files(
+  FILES
+  Activate.srv
+  Reset.srv
+  Move.srv
+  SetMode.srv
+  SetPosition.srv
+  SetSpeed.srv
+  SetTorque.srv
+)
 
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
