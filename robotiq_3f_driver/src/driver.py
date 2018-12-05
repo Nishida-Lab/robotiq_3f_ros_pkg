@@ -14,27 +14,24 @@ from time import sleep
 class Robotic3fGripperDriver(object):
     def __init__(self):
         self._command_pub = rospy.Publisher('Robotiq3FGripperRobotOutput', outputMsg.Robotiq3FGripper_robot_output, queue_size=1)
-        rospy.Subscriber("Robotiq3FGripperRobotInput", inputMsg.Robotiq3FGripper_robot_input, _gripper_status_callback, queue_size=1)
+        rospy.Subscriber("Robotiq3FGripperRobotInput", inputMsg.Robotiq3FGripper_robot_input, self._gripper_status_callback, queue_size=1)
         self._gripper_status = inputMsg.Robotiq3FGripper_robot_input()
         self._command = outputMsg.Robotiq3FGripper_robot_output()
         self._timeout = 30
+        sleep(1)
+        self.activate()
+
 
     def _gripper_status_callback(self, msg):
         self._gripper_status = msg
 
     def _is_activated(self):
-        if self._gripper_status.gACT = 0:
-            return false
+        if self._gripper_status.gACT == 0:
+            return False
+        elif self._gripper_status.gIMC == 0:
+            return False
         else:
-            return true
-
-    def _is_reset(self):
-        if not self._is_activated():
-            return true
-        elif self._gripper_status.gIMC = 0:
-            return true
-        else:
-            return false
+            return True
 
     def reset(self):
         self._command = outputMsg.Robotiq3FGripper_robot_output()
@@ -95,7 +92,7 @@ class Robotic3fGripperDriver(object):
         self._command_pub.publish(self._command)
 
     def get_mode(self):
-        mode = self._gripper_status.rMOD
+        mode = self._gripper_status.gMOD
         if mode == 0:
             return 'basic'
         elif mode == 1:
