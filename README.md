@@ -36,4 +36,4 @@ $ catkin build
 ```
 $ roslaunch robotiq_3f_driver listener.launch ip_address:=<gripper_ip_address>
 ```
-then, ROS services will be activated.
+then, ROS services and gripper will be activated.
