@@ -21,11 +21,8 @@ from time import sleep
 class Robotic3fGripperListener(object):
     def __init__(self):
         self.gripper = Robotic3fGripperDriver()
-        # self.gripper.activate()
-        # sleep(1)
-        # while self.gripper._gripper_status.gIMC != 3:
-        #     pass
         self._activate_service = rospy.Service('/robotiq_3f_gripper/activate', Activate, self.activate)
+        self._reset_service = rospy.Service('/robotiq_3f_gripper/reset', Reset, self.reset)
         self._open_hand_service = rospy.Service('/robotiq_3f_gripper/open_hand', Move, self.open_hand)
         self._close_hand_service = rospy.Service('/robotiq_3f_gripper/close_hand', Move, self.close_hand)
         self._set_mode_service = rospy.Service('/robotiq_3f_gripper/set_mode', SetMode, self.set_mode)
@@ -44,6 +41,12 @@ class Robotic3fGripperListener(object):
         sleep(1)
         while self.gripper._gripper_status.gIMC != 3:
             pass
+        ret.success = True
+        return ret
+
+    def reset(self, req):
+        ret = ResetResponse()
+        self.gripper.reset()
         ret.success = True
         return ret
 
