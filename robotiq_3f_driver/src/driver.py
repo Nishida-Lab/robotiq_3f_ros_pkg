@@ -18,8 +18,6 @@ class Robotic3fGripperDriver(object):
         self._gripper_status = inputMsg.Robotiq3FGripper_robot_input()
         self._command = outputMsg.Robotiq3FGripper_robot_output()
         self._timeout = 30
-        sleep(1)
-        self.activate()
 
     def _gripper_status_callback(self, msg):
         self._gripper_status = msg
