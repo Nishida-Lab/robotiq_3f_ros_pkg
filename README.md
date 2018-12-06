@@ -34,7 +34,6 @@ $ catkin build
 
 ## Usage
 ```
-$ rosrun robotiq_3f_gripper_control Robotiq3FGripperTcpNode.py <gripper_ip_address>
-$ rosrun robotiq_3f_driver listener.py
+$ roslaunch robotiq_3f_driver listener.launch ip_address:=<gripper_ip_address>
 ```
 then, ROS services will be activated.
