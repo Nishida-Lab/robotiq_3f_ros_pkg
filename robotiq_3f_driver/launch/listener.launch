@@ -1,6 +1,8 @@
 <launch>
   <arg name="ip_address" default="192.168.1.11" />
 
+  <param name="use_hand" type="bool" value="true" />
+
   <node pkg="robotiq_3f_gripper_control" type="Robotiq3FGripperTcpNode.py" name="Robotiq3FGripperTcpNode" args="$(arg ip_address)" />
   <node pkg="robotiq_3f_driver" type="listener.py" name="Robotiq3FGripperListener" />
   <node pkg="robotiq_3f_driver" type="activate.py" name="Robotiq3FGripperActivate" />
