@@ -21,7 +21,6 @@ class Robotic3fGripperDriver(object):
         sleep(1)
         self.activate()
 
-
     def _gripper_status_callback(self, msg):
         self._gripper_status = msg
 
@@ -112,7 +111,6 @@ class Robotic3fGripperDriver(object):
                     return self._gripper_status.gPRA
                 sleep(0.1)
 
-
     def get_position_a(self):
         # status: go to position request
         if self._gripper_status.gGTO == 1:
@@ -142,7 +140,6 @@ class Robotic3fGripperDriver(object):
                 if self._gripper_status.gSTA != 0:
                     return self._gripper_status.gPOC
                 sleep(0.1)
-
 
     def get_speed(self):
         return self._command.rSPA
