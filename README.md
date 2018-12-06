@@ -32,8 +32,14 @@ $ catkin build
 /robotiq_3f_gripper/get_torque
 ```
 
+## Available gripper mode
+- basic
+- pinch
+- wide
+- scissor
+
 ## Usage
 ```
-$ roslaunch robotiq_3f_driver listener.launch ip_address:=<gripper_ip_address>
+$ roslaunch robotiq_3f_driver listener.launch ip_address:=192.168.1.11
 ```
 then, ROS services and gripper will be activated.
