@@ -10,7 +10,8 @@ public:
 
 private:
   void jointstateCallback(const sensor_msgs::JointState::ConstPtr &js);
-  float joint_position[11] = {0.2814, 1.0443, -1.2217, 0.2814, 1.0443, -1.2217, 0.2814, 1.0443, -1.2217, 0.0, 0.0};
+  // float joint_position[11] = {0.2814, 1.0443, -1.2217, 0.2814, 1.0443, -1.2217, 0.2814, 1.0443, -1.2217, 0.0, 0.0};
+  float joint_position[11] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
   ros::Subscriber js_sub;
   ros::Publisher js_pub;
