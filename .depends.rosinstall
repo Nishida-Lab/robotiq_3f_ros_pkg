@@ -1,0 +1,4 @@
+- git:
+    local-name: denso_deps/robotiq
+    uri: git@github.com:Nishida-Lab/robotiq.git
+    version: kinetic-devel
