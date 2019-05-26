@@ -4,12 +4,14 @@ project(robotiq_3f_driver)
 find_package(catkin REQUIRED COMPONENTS
   rospy
   std_srvs
+  robotiq_3f_gripper_control
   )
 
 catkin_package(
   CATKIN_DEPENDS
   rospy
   std_srvs
+  robotiq_3f_gripper_control
   )
 
 include_directories(${catkin_INCLUDE_DIRS})

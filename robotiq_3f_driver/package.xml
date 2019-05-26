@@ -11,6 +11,7 @@
   <buildtool_depend>catkin</buildtool_depend>
   <depend>rospy</depend>
   <depend>std_srvs</depend>
+  <depend>robotiq_3f_gripper_control</depend>
 
   <test_depend>roslaunch</test_depend>
 
