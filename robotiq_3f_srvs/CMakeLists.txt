@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 2.8.3)
 project(robotiq_3f_srvs)
 
 find_package(catkin REQUIRED COMPONENTS
+  message_generation
   rospy
   std_msgs
-  message_generation
 )
 
 add_service_files(
@@ -27,9 +27,14 @@ generate_messages(
   std_msgs
 )
 
+catkin_package(CATKIN_DEPENDS
+  message_generation
+  message_runtime
+  std_msgs
+  message_runtime
+  )
+
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
-
-catkin_package(CATKIN_DEPENDS message_runtime std_msgs)
 
