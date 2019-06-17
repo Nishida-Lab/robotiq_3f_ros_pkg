@@ -26,7 +26,7 @@ foreach(dir ${descs})
       DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 endforeach()
 
-foreach(dir launch urdf robots config)
+foreach(dir launch robots config)
   install(DIRECTORY ${dir}/
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
 endforeach(dir)
