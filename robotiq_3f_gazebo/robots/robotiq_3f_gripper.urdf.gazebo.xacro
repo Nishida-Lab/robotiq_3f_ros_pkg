@@ -7,5 +7,6 @@
   <joint name="joint_w" type="fixed">
     <parent link="world"/>
     <child link="palm"/>
+    <origin xyz="0 0 0.054" rpy="1.57 0 0"/>
   </joint>
 </robot>
