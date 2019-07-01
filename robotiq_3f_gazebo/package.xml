@@ -8,5 +8,9 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>xacro</exec_depend>
+
   <test_depend>roslaunch</test_depend>
+  
 </package>
