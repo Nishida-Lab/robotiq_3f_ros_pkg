@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<robot name="robotiq_3f_gripper" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find robotiq_3f_description)/robots/robotiq_3f_gripper.urdf.xacro"/>
+  <xacro:include filename="$(find robotiq_3f_gazebo)/robots/robotiq_3f_gripper.gazebo.xacro"/>
+
+  <link name="world" />
+  <joint name="joint_w" type="fixed">
+    <parent link="world"/>
+    <child link="palm"/>
+    <origin xyz="0 0 0.054" rpy="1.57 0 0"/>
+  </joint>
+</robot>
