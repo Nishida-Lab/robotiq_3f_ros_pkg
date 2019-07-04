@@ -9,10 +9,16 @@ catkin_package()
 ## Install ##
 #############
 
+set(DIRECTORIES
+  config
+  launch
+  robots
+  urdf)
+
 # other files
-foreach(dir urdf robots config launch)
-   install(DIRECTORY ${dir}
-      DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+foreach(dirs ${DIRECTORIES})
+   install(DIRECTORY ${dirs}
+      DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dirs})
 endforeach()
 
 #############
