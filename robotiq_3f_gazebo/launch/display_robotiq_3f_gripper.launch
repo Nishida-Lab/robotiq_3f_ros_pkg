@@ -15,4 +15,21 @@
 
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model $(arg robot_name)" />
 
+  <rosparam file="$(find robotiq_3f_gazebo)/config/$(arg robot_name)_control_sim.yaml" command="load" />
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
+  ns="/$(arg robot_name)" args="joint_state_controller gripper_controller" />
+
+  <!-- robot_state_publisher -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher"
+  type="robot_state_publisher" respawn="false" output="screen">
+    <remap from="/joint_states" to="/$(arg robot_name)/joint_states" />
+  </node>
+
+  <!-- joint_state_publisher -->
+  <arg name="robot_joint_states" default="[/$(arg robot_name)/joint_states]"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="/use_gui" value="False"/>
+    <rosparam param="/source_list" subst_value="True">$(arg robot_joint_states)</rosparam>
+  </node>
+
 </launch>

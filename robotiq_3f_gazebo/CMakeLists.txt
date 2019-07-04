@@ -10,7 +10,7 @@ catkin_package()
 #############
 
 # other files
-foreach(dir urdf robots)
+foreach(dir urdf robots config launch)
    install(DIRECTORY ${dir}
       DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 endforeach()
