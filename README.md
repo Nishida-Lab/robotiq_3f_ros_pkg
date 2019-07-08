@@ -44,3 +44,11 @@ $ catkin build
 $ roslaunch robotiq_3f_driver listener.launch ip_address:=192.168.1.11
 ```
 then, ROS services and gripper will be activated.
+
+## CI
+See [here](https://github.com/Nishida-Lab/denso_docs/tree/master/ci) for detail decumentation.
+
+Replace the repository specific keywords in the above link as follows:
+- `<your_repo>` -> `robotiq_3f_ros_pkg`
+- `<your_pkg>` -> `robotiq_3f_control`, `robotiq_3f_description`, `robotiq_3f_driver`, `robotiq_3f_gazebo`, `robotiq_3f_srvs`
+- `<your_rosintall_dir>` -> `.depends.rosinstall`
