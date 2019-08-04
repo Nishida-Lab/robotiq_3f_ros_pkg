@@ -43,15 +43,27 @@ foreach(nodes ${EXEC_FILES})
  )
 endforeach(nodes)
 
-foreach(dir launch)
-  install(DIRECTORY ${dir}/
-    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
-endforeach(dir)
+set(DIRECTORIES
+  ./launch/
+  )
+# other files
+foreach(dirs ${DIRECTORIES})
+  install(DIRECTORY ${dirs}
+    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dirs})
+endforeach()
 
-########
-# Test #
-########
+#############
+## Testing ##
+#############
+
 if (CATKIN_ENABLE_TESTING)
   find_package(roslaunch REQUIRED)
-  roslaunch_add_file_check(launch)
+
+  set(DIRECTORIES
+    ./launch/
+    )
+
+  foreach(dirs ${DIRECTORIES})
+    roslaunch_add_file_check(${dirs})
+  endforeach()
 endif()

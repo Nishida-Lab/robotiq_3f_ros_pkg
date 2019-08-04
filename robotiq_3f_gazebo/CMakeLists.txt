@@ -10,21 +10,30 @@ catkin_package()
 #############
 
 set(DIRECTORIES
-  config
-  launch
-  robots
-  urdf)
-
-# other files
+  ./config/
+  ./launch/
+  ./robots/
+  ./urdf/
+  )
+# Install other files
 foreach(dirs ${DIRECTORIES})
-   install(DIRECTORY ${dirs}
-      DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dirs})
+  install(DIRECTORY ${dirs}
+    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dirs})
 endforeach()
 
 #############
 ## Testing ##
 #############
+
 if (CATKIN_ENABLE_TESTING)
   find_package(roslaunch REQUIRED)
-  roslaunch_add_file_check(launch)
+
+  set(DIRECTORIES
+    ./launch/
+    )
+
+  foreach(dirs ${DIRECTORIES})
+    roslaunch_add_file_check(${dirs})
+  endforeach()
 endif()
+
