@@ -22,14 +22,20 @@ catkin_package(
 
 file(GLOB descs RELATIVE ${PROJECT_SOURCE_DIR} "*_description")
 foreach(dir ${descs})
-   install(DIRECTORY ${dir}
-      DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+  install(DIRECTORY ${dir}
+    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 endforeach()
 
-foreach(dir launch robots config)
-  install(DIRECTORY ${dir}/
-    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
-endforeach(dir)
+set(DIRECTORIES
+  ./config/
+  ./launch/
+  ./robots/
+  )
+# Install other files
+foreach(dirs ${DIRECTORIES})
+  install(DIRECTORY ${dirs}
+    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dirs})
+endforeach()
 
 #############
 ## Testing ##
@@ -37,5 +43,12 @@ endforeach(dir)
 
 if (CATKIN_ENABLE_TESTING)
   find_package(roslaunch REQUIRED)
-  roslaunch_add_file_check(launch)
+
+  set(DIRECTORIES
+    ./launch/
+    )
+
+  foreach(dirs ${DIRECTORIES})
+    roslaunch_add_file_check(${dirs})
+  endforeach()
 endif()
