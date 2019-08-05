@@ -51,4 +51,4 @@ See [here](https://github.com/Nishida-Lab/denso_docs/tree/master/ci) for detail 
 Replace the repository specific keywords in the above link as follows:
 - `<your_repo>` -> `robotiq_3f_ros_pkg`
 - `<your_pkg>` -> `robotiq_3f_control`, `robotiq_3f_description`, `robotiq_3f_driver`, `robotiq_3f_gazebo`, `robotiq_3f_srvs`
-- `<your_rosintall_dir>` -> `.`
+- `<your_rosinstall_dir>` -> `.`
