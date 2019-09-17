@@ -1,44 +1,24 @@
-#include <ros/ros.h>
-#include <sensor_msgs/JointState.h>
-#include <iostream>
-#include <vector>
+#include <robotiq_3f_control/robotiq_3f_joint_state_republisher.h>
 
-class RobotiqHandJointStateRePublisher
+using robotiq_3f_joint_state_republisher::Robotiq3FJointStateRePublisher;
+
+Robotiq3FJointStateRePublisher::Robotiq3FJointStateRePublisher(ros::NodeHandle& nh) : nh_(nh)
 {
-public:
-  RobotiqHandJointStateRePublisher(ros::NodeHandle &nh);
-
-private:
-  void jointstateCallback(const sensor_msgs::JointState::ConstPtr &js);
-  // float joint_position[11] = {0.2814, 1.0443, -1.2217, 0.2814, 1.0443, -1.2217, 0.2814, 1.0443, -1.2217, 0.0, 0.0};
-  float joint_position[11] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-
-  ros::Subscriber js_sub;
-  ros::Publisher js_pub;
-
-  std::vector<std::string> robotiq_hand_joint_name;
-};
-
-RobotiqHandJointStateRePublisher::RobotiqHandJointStateRePublisher(ros::NodeHandle &nh)
-{
-  robotiq_hand_joint_name.push_back("finger_1_joint_1");
-  robotiq_hand_joint_name.push_back("finger_1_joint_2");
-  robotiq_hand_joint_name.push_back("finger_1_joint_3");
-  robotiq_hand_joint_name.push_back("finger_2_joint_1");
-  robotiq_hand_joint_name.push_back("finger_2_joint_2");
-  robotiq_hand_joint_name.push_back("finger_2_joint_3");
-  robotiq_hand_joint_name.push_back("finger_middle_joint_1");
-  robotiq_hand_joint_name.push_back("finger_middle_joint_2");
-  robotiq_hand_joint_name.push_back("finger_middle_joint_3");
-  robotiq_hand_joint_name.push_back("palm_finger_1_joint");
-  robotiq_hand_joint_name.push_back("palm_finger_2_joint");
-
-  ros::NodeHandle n("~");
-  js_pub = nh.advertise<sensor_msgs::JointState>(n.param<std::string>("joint_state_republish_topic_name", "/joint_states_republish"), 1);
-  js_sub = nh.subscribe<sensor_msgs::JointState>(n.param<std::string>("joint_state_subscribe_topic_name", "/joint_states"), 10, &RobotiqHandJointStateRePublisher::jointstateCallback, this);
+  js_pub_ = nh.advertise<sensor_msgs::JointState>(nh.param<std::string>("joint_state_republish_topic_name", "/joint_states_republish"), 1);
+  js_sub_ = nh.subscribe<sensor_msgs::JointState>(nh.param<std::string>("joint_state_subscribe_topic_name", "/joint_states"), 10, &Robotiq3FJointStateRePublisher::jointstateCallback, this);
+  js_robotiq_sub_ = nh.subscribe<sensor_msgs::JointState>("/robotiq/joint_states", 10, &Robotiq3FJointStateRePublisher::jointstateRobotiqCallback, this);
+  robotiq_joint_state_.clear();
 }
 
-void RobotiqHandJointStateRePublisher::jointstateCallback(const sensor_msgs::JointState::ConstPtr &js)
+void Robotiq3FJointStateRePublisher::jointstateRobotiqCallback(const sensor_msgs::JointState::ConstPtr& js)
+{
+  for (int i = 0; i < js->name.size(); i++)
+  {
+    robotiq_joint_state_[js->name[i]] = js->position[i];
+  }
+}
+
+void Robotiq3FJointStateRePublisher::jointstateCallback(const sensor_msgs::JointState::ConstPtr& js)
 {
   sensor_msgs::JointState joint_state;
   joint_state.header = js->header;
@@ -47,22 +27,21 @@ void RobotiqHandJointStateRePublisher::jointstateCallback(const sensor_msgs::Joi
   joint_state.velocity = js->velocity;
   joint_state.effort = js->effort;
 
-  for (int i = 0; i < robotiq_hand_joint_name.size(); i++)
+  if (robotiq_joint_state_.size() != 0)
   {
-    joint_state.name.push_back(robotiq_hand_joint_name[i]);
-    joint_state.position.push_back(joint_position[i]);
-    joint_state.velocity.push_back(0.0);
-    joint_state.effort.push_back(0.0);
+    for (int i = 0; i < joint_state.name.size(); i++)
+    {
+      if (robotiq_joint_state_.find(joint_state.name[i]) != robotiq_joint_state_.end())
+      {
+        joint_state.position[i] = robotiq_joint_state_[joint_state.name[i]];
+      }
+      else
+      {
+        continue;
+      }
+      
+    }
   }
 
-  js_pub.publish(joint_state);
-}
-
-int main(int argc, char *argv[])
-{
-  ros::init(argc, argv, "robotiq_3f_joint_state_republisher");
-  ros::NodeHandle n;
-  RobotiqHandJointStateRePublisher robotiq_hand_joint_state_republisher(n);
-  ros::spin();
-  return 0;
+  js_pub_.publish(joint_state);
 }
