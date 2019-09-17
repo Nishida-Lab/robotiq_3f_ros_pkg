@@ -1,0 +1,12 @@
+<launch>
+  <arg name="joint_state_republish_topic_name" default="/vs087/joint_states" />
+  <arg name="joint_state_subscribe_topic_name" default="/joint_states" />
+
+  <node pkg="robotiq_3f_gripper_joint_state_publisher" type="robotiq_3f_gripper_joint_states" name="robotiq_3f_gripper_joint_states" output="screen">
+    <remap from="/joint_states" to="/robotiq/joint_states" />
+  </node>
+  <node pkg="robotiq_3f_control"  type="robotiq_3f_joint_state_republisher"  name="robotiq_3f_joint_state_republisher" output="screen">
+    <param name="joint_state_republish_topic_name" value="$(arg joint_state_republish_topic_name)" />
+    <param name="joint_state_subscribe_topic_name" value="$(arg joint_state_subscribe_topic_name)" />
+  </node>
+</launch>

@@ -4,15 +4,15 @@ project(robotiq_3f_control)
 add_compile_options(-std=c++11)
 
 find_package(catkin REQUIRED COMPONENTS
-  control_msgs
   roscpp
   sensor_msgs
 )
 catkin_package(
- CATKIN_DEPENDS
- control_msgs
- roscpp
- sensor_msgs
+  INCLUDE_DIRS include
+  LIBRARIES ${PROJECT_NAME}
+  CATKIN_DEPENDS
+    roscpp
+    sensor_msgs
 )
 
 ###########
@@ -20,11 +20,15 @@ catkin_package(
 ###########
 
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(robotiq_3f_joint_state_republisher src/robotiq_3f_joint_state_republisher.cpp)
+add_executable(robotiq_3f_joint_state_republisher
+  src/robotiq_3f_joint_state_republisher.cpp
+  src/robotiq_3f_joint_state_republisher_node.cpp
+)
+
 target_link_libraries(robotiq_3f_joint_state_republisher
   ${catkin_LIBRARIES}
 )
@@ -41,7 +45,10 @@ foreach(nodes ${EXEC_FILES})
   install(TARGETS robotiq_3f_joint_state_republisher
     RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
-endforeach(nodes)
+endforeach()
+
+install(DIRECTORY include/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
 
 set(DIRECTORIES
   ./launch/
