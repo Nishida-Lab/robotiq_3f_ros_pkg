@@ -13,6 +13,7 @@ class Robotiq3FJointStateRePublisher
 {
 public:
   Robotiq3FJointStateRePublisher(ros::NodeHandle& nh);
+
 private:
   void jointstateCallback(const sensor_msgs::JointState::ConstPtr& js);
   void jointstateRobotiqCallback(const sensor_msgs::JointState::ConstPtr& js);
@@ -24,6 +25,6 @@ private:
   ros::Publisher js_pub_;
   std::map<std::string, double> robotiq_joint_state_;
 };
-} // robotiq_3f_joint_state_republisher
+}  // robotiq_3f_joint_state_republisher
 
-#endif // ROBOTIQ_3F_JOINT_STATE_REPUBLISHER_H
+#endif  // ROBOTIQ_3F_JOINT_STATE_REPUBLISHER_H

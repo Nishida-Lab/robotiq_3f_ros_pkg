@@ -4,9 +4,13 @@ using robotiq_3f_joint_state_republisher::Robotiq3FJointStateRePublisher;
 
 Robotiq3FJointStateRePublisher::Robotiq3FJointStateRePublisher(ros::NodeHandle& nh) : nh_(nh)
 {
-  js_pub_ = nh.advertise<sensor_msgs::JointState>(nh.param<std::string>("joint_state_republish_topic_name", "/joint_states_republish"), 1);
-  js_sub_ = nh.subscribe<sensor_msgs::JointState>(nh.param<std::string>("joint_state_subscribe_topic_name", "/joint_states"), 10, &Robotiq3FJointStateRePublisher::jointstateCallback, this);
-  js_robotiq_sub_ = nh.subscribe<sensor_msgs::JointState>("/robotiq/joint_states", 10, &Robotiq3FJointStateRePublisher::jointstateRobotiqCallback, this);
+  js_pub_ = nh.advertise<sensor_msgs::JointState>(
+      nh.param<std::string>("joint_state_republish_topic_name", "/joint_states_republish"), 1);
+  js_sub_ =
+      nh.subscribe<sensor_msgs::JointState>(nh.param<std::string>("joint_state_subscribe_topic_name", "/joint_states"),
+                                            10, &Robotiq3FJointStateRePublisher::jointstateCallback, this);
+  js_robotiq_sub_ = nh.subscribe<sensor_msgs::JointState>(
+      "/robotiq/joint_states", 10, &Robotiq3FJointStateRePublisher::jointstateRobotiqCallback, this);
   robotiq_joint_state_.clear();
 }
 
@@ -39,7 +43,6 @@ void Robotiq3FJointStateRePublisher::jointstateCallback(const sensor_msgs::Joint
       {
         continue;
       }
-      
     }
   }
 

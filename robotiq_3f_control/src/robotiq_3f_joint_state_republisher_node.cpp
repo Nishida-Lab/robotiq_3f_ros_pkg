@@ -2,7 +2,7 @@
 
 using robotiq_3f_joint_state_republisher::Robotiq3FJointStateRePublisher;
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
   ros::init(argc, argv, "robotiq_3f_joint_state_republisher");
   ros::NodeHandle nh("~");
