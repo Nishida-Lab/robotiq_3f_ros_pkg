@@ -24,7 +24,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(robotiq_3f_joint_state_republisher 
+add_executable(robotiq_3f_joint_state_republisher
   src/robotiq_3f_joint_state_republisher.cpp
   src/robotiq_3f_joint_state_republisher_node.cpp
 )
@@ -45,7 +45,7 @@ foreach(nodes ${EXEC_FILES})
   install(TARGETS robotiq_3f_joint_state_republisher
     RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
-endforeach(nodes)
+endforeach()
 
 install(DIRECTORY include/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
