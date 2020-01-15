@@ -1,5 +1,7 @@
 # robotiq_3f_ros_pkg
 
+[![](https://github.com/Nishida-Lab/robotiq_3f_ros_pkg/workflows/CI/badge.svg)](https://github.com/Nishida-Lab/robotiq_3f_ros_pkg/actions)
+
 ## Description
 ROS wrapper package that provides functions related to 3-Finger Gripper control of robotiq package(https://github.com/ros-industrial/robotiq) as ROS service
 
