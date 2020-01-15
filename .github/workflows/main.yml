@@ -1,0 +1,19 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  industrial_ci:
+    strategy:
+      matrix:
+        env:
+          - {ROS_DISTRO: "kinetic",
+            ROS_REPO: "main",
+            ROSDEP_SKIP_KEYS: "denso_descriptions vs087_moveit_config denso_gazebo denso_execute denso_control phoxi_ros_pkg robotiq_3f_control robotiq_3f_driver robotiq_3f_srvs robotiq_3f_ros_pkg",
+            CATKIN_LINT_ARGS: "--ignore unknown_package"}
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: 'ros-industrial/industrial_ci@master'
+        env: ${{matrix.env}}
