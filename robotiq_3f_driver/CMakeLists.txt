@@ -1,18 +1,9 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(robotiq_3f_driver)
 
-find_package(catkin REQUIRED COMPONENTS
-  rospy
-  std_srvs
-  robotiq_3f_gripper_control
-  )
+find_package(catkin REQUIRED)
 
-catkin_package(
-  CATKIN_DEPENDS
-  rospy
-  std_srvs
-  robotiq_3f_gripper_control
-  )
+catkin_package()
 
 include_directories(${catkin_INCLUDE_DIRS})
 
@@ -29,7 +20,7 @@ set(PYTHON_SCRIPTS
 foreach(scripts ${PYTHON_SCRIPTS})
   catkin_install_python(PROGRAMS ${scripts}
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
-endforeach(scripts)
+endforeach()
 
 set(DIRECTORIES
   ./launch/
@@ -55,4 +46,3 @@ if (CATKIN_ENABLE_TESTING)
     roslaunch_add_file_check(${dirs})
   endforeach()
 endif()
-
